@@ -35,10 +35,17 @@ class ArraysTests
 		Integer o4=-1;
 		EvenOddComparator eoComp=new EvenOddComparator(); 
 		assertEquals(-1, eoComp.compare(o1, o2));
-		assertEquals(1, eoComp.compare(o1, o3));
-		assertEquals(-1, eoComp.compare(o3, o2));
+		assertEquals(-1, eoComp.compare(o1, o3));
+		assertEquals(1, eoComp.compare(o3, o2));
 		assertEquals(-1, eoComp.compare(o3, o4));
+		
+		assertEquals(1, eoComp.compare(o2, o1));
+		assertEquals(1, eoComp.compare(o3, o1));
+		assertEquals(-1, eoComp.compare(o2, o3));
+		assertEquals(1, eoComp.compare(o4, o3));
+
 		assertEquals(0, eoComp.compare(o1, o1));
+		assertEquals(0, eoComp.compare(o4, o4));
 	}
 	
 	@Test

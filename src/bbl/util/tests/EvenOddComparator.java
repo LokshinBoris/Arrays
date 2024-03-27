@@ -12,39 +12,30 @@ public class EvenOddComparator implements Comparator<Integer>
 		// return 0  if elem1=elem2
 		// return 1  if elem1>elem2
 		int res=0;
-		int elem1=o1.intValue();
-		int elem2=o2.intValue();
-		boolean isEvenElem1=(elem1%2==0);
-		boolean isEvenElem2=(elem2%2==0);
-		if(isEvenElem1==isEvenElem2)
+
+		boolean isEveno1=(o1%2==0);
+		boolean isEveno2=(o2%2==0);
+		if(isEveno1==isEveno2)
 		{
-			if(isEvenElem1)
+			if(isEveno1)
 			{
 				// both Even
-				if(elem1<elem2) res=-1;
-				else if(elem1>elem2) res=1;
+				if(o1<o2) res=-1;
+				else if(o1>o2) res=1;
 				else res=0;
 			}
 			else
 			{
 				// both Odd
-				if(elem1<elem2) res=1;
-				else if(elem1>elem2) res=-1;
+				if(o1<o2) res=1;
+				else if(o1>o2) res=-1;
 				else res=0;
 			}			
 		}
 		else
 		{
-			if(isEvenElem1) 
-			{
-				// first Even, second Odd
-				res=-1;
-			}
-			else 
-			{
-				// first Odd, second Even
-				res=1;
-			}
+			if(isEveno1) res=-1; // first Even, second Odd
+			else res=1; // first Odd, second Even
 		}
 		return res;		
 	}

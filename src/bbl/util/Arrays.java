@@ -40,8 +40,10 @@ public class Arrays
 	public static <T> void bubbleSort(T[] array, Comparator<T> comp)
 	{
 		int length=array.length;
-		for(int i=length-1;i>=1;i--)
+		boolean ischanged=true;
+		for(int i=length-1;i>=1 && ischanged;i--)
 		{
+			ischanged=false;
 			for(int j=0;j<i;j++)
 			{
 				if(comp.compare(array[j],array[j+1])>0)
@@ -49,6 +51,7 @@ public class Arrays
 					T temp=array[j];
 					array[j]=array[j+1];
 					array[j+1]=temp;
+					ischanged=true;
 				}
 			}
 		}
