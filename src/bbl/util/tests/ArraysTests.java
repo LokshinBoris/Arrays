@@ -80,9 +80,10 @@ class ArraysTests
 		assertEquals(2, Arrays.binarySearch(sortedArray,0,compInt) );
 		int index = Arrays.binarySearch(sortedArray,24,compInt);
 		assertTrue(index>=4 && index<=6);
-		assertEquals(-1, Arrays.binarySearch(sortedArray,1,compInt) );
+		assertEquals(-4, Arrays.binarySearch(sortedArray,1,compInt) );
+		assertEquals(-2, Arrays.binarySearch(sortedArray,-4,compInt) );
 		assertEquals(-1, Arrays.binarySearch(sortedArray,-8,compInt) );
-		assertEquals(-1, Arrays.binarySearch(sortedArray,122,compInt) );		
+		assertEquals(-8, Arrays.binarySearch(sortedArray,122,compInt) );		
 	}
 
 	@Test

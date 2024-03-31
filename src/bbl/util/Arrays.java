@@ -77,13 +77,24 @@ public class Arrays
 		int index=-1;
 		while(down<=up && index<0)
 		{
+			
 			middle=down+(up-down)/2;
+		//	System.out.printf("Befor Down=%d Up=%d Middle=%d\n", down,up,middle);
 			resCompare=comp.compare(array[middle],key);
 			if(resCompare<0) down=middle+1;			//array[middle]<key -> search up
 			else if (resCompare>0) up=middle-1;		//array[middle]>key -> search down
 				 else index=middle;  				//array[middle]=key -> stop
 		}
-		
+		if(index<0)
+		{
+			if(resCompare<0)
+			{
+				if(middle==array.length-1) index=-(middle)-1;
+				else index=-(middle+1)-1;
+ 
+			}
+			else index= -middle-1;
+		}
 		return index;
 	}
 	
@@ -99,18 +110,9 @@ public class Arrays
 		}
 		return java.util.Arrays.copyOf(arResult,index);
 	}
-	public static <T> T[] removeIf(T[] array, Predicate<T> predicate) 
+	public static <T> T[] removeIf(T[] array, Predicate<T> predicate)
 	{
-		//removes all elements of array matching a given predicate
-		T[] arResult = java.util.Arrays.copyOf(array, array.length);
-		int index = 0;
-		for(int i = 0; i < array.length; i++) {
-			if(!predicate.test(array[i])) {
-				arResult[index++] = array[i];
-			}
-		}
-		return java.util.Arrays.copyOf(arResult,index);
-		
+		return search(array,predicate.negate());
 	}
 	
 }
