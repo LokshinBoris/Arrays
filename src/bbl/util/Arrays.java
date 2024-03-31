@@ -1,6 +1,7 @@
 package bbl.util;
 
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 public class Arrays 
 {
@@ -56,4 +57,60 @@ public class Arrays
 			}
 		}
 	}
+	
+	public static <T> int binarySearch(T[] array, T key, Comparator<T> comp)
+	{
+		//TODO
+		//left index = 0
+		//right index = array.length - 1
+		//middle (left + right) / 2
+		//left part - left index, right index = middle - 1
+		//right part - left index = middle + 1, right index
+		//while left <= right
+		//returns exactly what the standard binarySearch does
+		//if there are several equaled elements no guarantee that
+		// being returned index is the one to first occurrence
+		int down=0;
+		int up=array.length-1;
+		int middle=0;
+		int resCompare=0;
+		int index=-1;
+		while(down<=up && index<0)
+		{
+			middle=down+(up-down)/2;
+			resCompare=comp.compare(array[middle],key);
+			if(resCompare<0) down=middle+1;			//array[middle]<key -> search up
+			else if (resCompare>0) up=middle-1;		//array[middle]>key -> search down
+				 else index=middle;  				//array[middle]=key -> stop
+		}
+		
+		return index;
+	}
+	
+	public static <T> T[] search(T[] array, Predicate<T> predicate) {
+		//Impossible to allocate memory for generic array
+		//Only Arrays.copyOf may be used
+		T[] arResult = java.util.Arrays.copyOf(array, array.length);
+		int index = 0;
+		for(int i = 0; i < array.length; i++) {
+			if(predicate.test(array[i])) {
+				arResult[index++] = array[i];
+			}
+		}
+		return java.util.Arrays.copyOf(arResult,index);
+	}
+	public static <T> T[] removeIf(T[] array, Predicate<T> predicate) 
+	{
+		//removes all elements of array matching a given predicate
+		T[] arResult = java.util.Arrays.copyOf(array, array.length);
+		int index = 0;
+		for(int i = 0; i < array.length; i++) {
+			if(!predicate.test(array[i])) {
+				arResult[index++] = array[i];
+			}
+		}
+		return java.util.Arrays.copyOf(arResult,index);
+		
+	}
+	
 }

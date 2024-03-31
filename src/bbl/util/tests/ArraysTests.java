@@ -2,6 +2,9 @@ package bbl.util.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Comparator;
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.Test;
 
 import bbl.util.Arrays;
@@ -11,6 +14,7 @@ class ArraysTests
 	Integer[] numbers= {100,-3,23,4,8,41,56,-7};
 	String[] strings= {"abc","lmn","123", null, "a"};
 	String[] stringsMin= {"abc","lmn","123", "y"};
+	Integer [] sortedArray= { -6, -3, 0 , 4, 24, 100};
 	 
 	void indexOfTest()
 	{
@@ -63,5 +67,39 @@ class ArraysTests
 		// second test method
 		assertArrayEquals(expected, numbersCopy);	
 	}
+	
+	@Test
+	void binarySearchTest()
+	{
+		Integer[] sortedArray= { -6, -3, 0 , 4, 24, 24, 24, 100};
+		Comparator<Integer> compInt=(a,b)->a-b;
+		
+		assertEquals(1, Arrays.binarySearch(sortedArray,-3,compInt) );
+		assertEquals(0, Arrays.binarySearch(sortedArray,-6,compInt) );
+		assertEquals(7, Arrays.binarySearch(sortedArray,100,compInt) );
+		assertEquals(2, Arrays.binarySearch(sortedArray,0,compInt) );
+		int index = Arrays.binarySearch(sortedArray,24,compInt);
+		assertTrue(index>=4 && index<=6);
+		assertEquals(-1, Arrays.binarySearch(sortedArray,1,compInt) );
+		assertEquals(-1, Arrays.binarySearch(sortedArray,-8,compInt) );
+		assertEquals(-1, Arrays.binarySearch(sortedArray,122,compInt) );		
+	}
+
+	@Test
+	 void removeIfTest()
+	 {
+		
+		// numbers= {100,-3,23,4,8,41,56,-7};
+		Integer[] expectedNoNegative= {100,23,4,8,41,56};
+		assertArrayEquals(expectedNoNegative,Arrays.removeIf(numbers,a->a<0) );
+		
+		// stringsMin = {"abc","l9n","123", "y"};
+		Predicate<String> predStringWithNumeric = str -> str.matches(".*\\d.*"); 	
+		String[] expectedNumeric= {"abc","lmn", "y"};	
+		assertArrayEquals(expectedNumeric,Arrays.removeIf(stringsMin,predStringWithNumeric));
+		String[] testNumeric= {"adb3", "2s", "6890", "0"};
+		String[] expectedNull = new String[0];
+		assertArrayEquals(expectedNull,Arrays.removeIf(testNumeric,predStringWithNumeric));
+	 }
 
 }
