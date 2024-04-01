@@ -76,10 +76,8 @@ public class Arrays
 		int resCompare=0;
 		int index=-1;
 		while(down<=up && index<0)
-		{
-			
+		{		
 			middle=down+(up-down)/2;
-		//	System.out.printf("Befor Down=%d Up=%d Middle=%d\n", down,up,middle);
 			resCompare=comp.compare(array[middle],key);
 			if(resCompare<0) down=middle+1;			//array[middle]<key -> search up
 			else if (resCompare>0) up=middle-1;		//array[middle]>key -> search down
@@ -91,7 +89,6 @@ public class Arrays
 			{
 				if(middle==array.length-1) index=-(middle)-1;
 				else index=-(middle+1)-1;
- 
 			}
 			else index= -middle-1;
 		}
