@@ -3,6 +3,8 @@ package bbl.util;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
+
+
 public class Arrays 
 {
 	public static <T> int indexOf(T[] array, T element)
@@ -58,6 +60,14 @@ public class Arrays
 		}
 	}
 	
+	public static <T extends Comparable<T>> void bubbleSort(T[] array)
+	{
+		
+		Comparator<T> comparator = (a,b)-> a.compareTo(b);
+		bubbleSort(array, comparator);
+		//research: write the code based on the existing one of bubbleSort with comparator
+	}
+	
 	public static <T> int binarySearch(T[] array, T key, Comparator<T> comp)
 	{
 		//TODO
@@ -83,15 +93,7 @@ public class Arrays
 			else if (resCompare>0) up=middle-1;		//array[middle]>key -> search down
 				 else index=middle;  				//array[middle]=key -> stop
 		}
-		if(index<0)
-		{
-			if(resCompare<0)
-			{
-				if(middle==array.length-1) index=-(middle)-1;
-				else index=-(middle+1)-1;
-			}
-			else index= -middle-1;
-		}
+		if(index<0) index=-(down+1);
 		return index;
 	}
 	
@@ -111,5 +113,18 @@ public class Arrays
 	{
 		return search(array,predicate.negate());
 	}
+	
+	public static <T> T[] add (T[] array, T element) 
+	{
+		T[] result = java.util.Arrays.copyOf(array, array.length + 1);
+		result[array.length] = element;
+		return result;
+	}
+	public static <T> T[] copy(T[] array)
+	{
+		return java.util.Arrays.copyOf(array, array.length);
+	}
+
+	
 	
 }
