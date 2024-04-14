@@ -59,12 +59,10 @@ public class Arrays
 			}
 		}
 	}
-	
-	public static <T extends Comparable<T>> void bubbleSort(T[] array)
-	{
-		
-		Comparator<T> comparator = (a,b)-> a.compareTo(b);
-		bubbleSort(array, comparator);
+	@SuppressWarnings("unchecked")
+	public static <T > void bubbleSort(T[] array)
+	{	
+		bubbleSort(array, (Comparator<T>)Comparator.naturalOrder());
 		//research: write the code based on the existing one of bubbleSort with comparator
 	}
 	
@@ -125,6 +123,16 @@ public class Arrays
 		return java.util.Arrays.copyOf(array, array.length);
 	}
 
-	
+	public static <T> int lineSearch(T[] array, Predicate<T> predicate)
+	{
+		int index=-1;
+		int i=0;
+		while(i<array.length && index<0)
+		{
+			if(predicate.test(array[i])) index=i;
+			i++;
+		}
+		return index;
+	}
 	
 }

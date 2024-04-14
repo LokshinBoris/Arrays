@@ -1,10 +1,11 @@
 package bbl.employees;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import bbl.util.Arrays;
 //SO far we don't consider optimization
-public class Company implements Iterable
+public class Company implements Iterable<Employee>
 {
 	Employee[] employees;
 	public void addEmployee(Employee empl)
@@ -24,7 +25,7 @@ public class Company implements Iterable
 		// data about an employee with a given id value
 		// if the company doesn't have such employee, then return null
 		Employee emp= new Employee(id, 0 ," ");
-		int index = Arrays.binarySearch(employees, emp, (a,b)->a.compareTo(b));
+		int index = Arrays.binarySearch(employees, emp, Comparator.naturalOrder()); // Comparable::compareTo
 		
 		return index<0 ? null: employees[index];
 	}
@@ -33,35 +34,28 @@ public class Company implements Iterable
 		//removes from the company an employee with a given id
 		//if such employee doesn't exist, throw NoSuchElementException
 		//returns reference to being removed employee
-		Employee emp= new Employee(id, 0 ," ");
-		int index = Arrays.binarySearch(employees, emp, (a,b)->a.compareTo(b));
-		if(index<0)
+		Employee emp= getEmployee(id);
+		if(emp==null)
 		{
 			throw new NoSuchElementException( String.format("Employee id=(%d) not found",id) );
 		}
-		Employee oldEmployee= new Employee(employees[index].getId(),employees[index].getBasicSalary(),employees[index].getDepartment());
-		int i=0;
-		for(int j=0; j<employees.length;j++)
-		{
-			if(!employees[j].equals(oldEmployee))
-			{
-				employees[i++]=employees[j];
-			}
-		}
-		employees=java.util.Arrays.copyOf(employees,i);
-		return oldEmployee;
+		employees=Arrays.removeIf(employees, a->a.getId()==id);
+		return emp;
 	}
 	public int getDepartmentBudget(String department)
 	{
+		//FIXME
 		//returns sum of basic salary values for all employees of a given department
 		//if employees of a given department don't exist, returns 0
 		int sum=0;
 		for(Employee emp: employees)
 		{
-			if(emp.getDepartment().equals(department))	sum=sum+emp.getBasicSalary();
+			if(emp.getDepartment().equals(department))	sum=sum+emp.computeSalary();
 		}	
 		return sum;
 	}
+	
+	
 	public Company(Employee[] employees, boolean withSort) 
 	{
 		// withSort need for test
@@ -73,6 +67,18 @@ public class Company implements Iterable
 	{
 		return new CompanyIterator();
 	}
+	
+	public String[] getDepartmens()
+	{
+		String[] departments= {};
+		for(Employee emp: employees)
+		{		
+				int index=Arrays.binarySearch(departments, emp.getDepartment(), (a,b)->a.compareTo(b));
+				if(index<0)	departments=Arrays.add(departments, emp.getDepartment());				
+		}
+		return departments;
+	}
+
 	private class CompanyIterator implements Iterator<Employee>
 	{
 

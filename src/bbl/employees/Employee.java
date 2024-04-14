@@ -50,4 +50,10 @@ public class Employee implements Comparable<Employee>
 		return id == other.id;
 	}
 	
+	public int computeSalary() 
+	{
+		// TODO Auto-generated method stub
+		return basicSalary;
+	}
+	
 }

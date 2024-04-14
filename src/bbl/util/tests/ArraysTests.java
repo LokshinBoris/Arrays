@@ -111,6 +111,17 @@ class ArraysTests
 		 Integer[] actual = Arrays.add(numbers, 150);
 		 assertArrayEquals(expected, actual);
 	 }
+	 
+	 @Test
+	 void lineSearchTest()
+	 {
+		 Integer[] arr = {100, -3, 23, 4, 8, 41, 56, -7, 150};
+		 assertEquals(1,Arrays.lineSearch(arr, a->a==-3));
+		 assertEquals(8,Arrays.lineSearch(arr, a->a==150 ));
+		 assertEquals(-1,Arrays.lineSearch(arr, a->a==42 ) );
+	 }
+
+	 
 	 @Test
 	 void personsSortTest() 
 	 {
