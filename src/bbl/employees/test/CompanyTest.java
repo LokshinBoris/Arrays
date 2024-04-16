@@ -1,4 +1,4 @@
-package bbl.employees;
+package bbl.employees.test;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,6 +7,9 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.Test;
+
+import bbl.employees.*;
+import bbl.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 
@@ -127,6 +130,28 @@ Company company;
 	{
 		String[] expectedDepartments= new String[] {"Development", "QA"};
 		assertArrayEquals(expectedDepartments,company.getDepartmens()); 
+	}
+	
+	@Test
+	void testGetManagersWithMostFactor()
+	{
+		Manager emp1 = new Manager(10, 1000, DEPARTMENT1,(float)1.5);  // 1500 1.5
+		WageEmployee emp2 = new WageEmployee(ID2, SALARY2, DEPARTMENT1,HOURS2,WAGE2);
+		Manager emp3 = new Manager(20, 100, DEPARTMENT1,(float)10.);  // 1000 10.
+		SalesPerson emp4 = new SalesPerson(ID4, SALARY2, DEPARTMENT2,HOURS2,WAGE3,PERCENT4,SALES4);
+		Manager emp5 = new Manager(30, 750 ,DEPARTMENT2,(float)2.);  // 1500 2.
+		Manager emp6 = new Manager(40, 1700 ,DEPARTMENT2,(float)1.);  // 1700 1.
+		Manager emp7 = new Manager(50, 200 ,DEPARTMENT2,(float)10.);  // 2000 10.
+
+		Company comp=new Company(new Employee[] {emp1, emp2, emp3, emp4, emp5, emp6, emp7 },true);
+		Manager[] expectedManagers1 = new Manager[] {emp3, emp7};
+
+		assertArrayEquals(expectedManagers1,comp.getManagersWithMostFactor());
+		Manager emp8 = new Manager(60, 100 ,DEPARTMENT2,(float)12.);  // 1200 12.
+		comp.addEmployee(emp8);
+		Manager[] expectedManagers2 = new Manager[] {emp8};
+		assertArrayEquals(expectedManagers2,comp.getManagersWithMostFactor());
+
 	}
 
 }

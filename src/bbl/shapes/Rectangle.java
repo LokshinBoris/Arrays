@@ -13,12 +13,12 @@ public class Rectangle extends Shape
 	@Override
 	public int square()
 	{
-		return this.width*this.height;
+		return width*height;
 	}
 	@Override
 	public int perimeter()
 	{
-		return 2*(this.width+this.height);
+		return 2*(width+height);
 	}
 	
 }

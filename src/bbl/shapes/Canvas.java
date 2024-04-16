@@ -3,6 +3,7 @@ package bbl.shapes;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import bbl.shapes.exceptions.*;
 import bbl.util.Arrays;
 
 public class Canvas extends Shape implements Iterable<Shape>
@@ -14,7 +15,7 @@ public class Canvas extends Shape implements Iterable<Shape>
 		super(id);	
 		this.shapes=Arrays.copy(shapes);
 	}
-	
+
 	public Shape getShape(long id) 
 	{
 		// data about an employee with a given id value
@@ -28,7 +29,7 @@ public class Canvas extends Shape implements Iterable<Shape>
 		int index=Arrays.lineSearch(shapes, a->a.getId()==shape.id);
 		if(index>=0)
 		{
-			throw new IllegalStateException( String.format("An shape with id=(%d) alredy in canvas",shape.getId()) );
+			throw new ShapeAlreadyExistsException( shape.getId() );
 		}
 		shapes=Arrays.add(shapes, shape);
 		return shapes;

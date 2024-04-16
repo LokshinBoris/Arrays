@@ -30,7 +30,7 @@ public class SalesPerson extends WageEmployee
 	
 	public int computeSalary() 
 	{
-		return super.computeSalary()+ (int)(sales*percent/100);
+		return Math.round( super.computeSalary()+ (int)(sales*percent/100) );
 	}
 
 

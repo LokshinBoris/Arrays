@@ -1,4 +1,4 @@
-package bbl.shapes;
+package bbl.shapes.test;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,10 +8,9 @@ import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import bbl.employees.Company;
-import bbl.employees.Employee;
 
-
+import bbl.shapes.*;
+import bbl.shapes.exceptions.*;
 
 class ShapeTest {
 	private static final long ID1 = 1;
@@ -40,7 +39,7 @@ class ShapeTest {
 	@Test
 	void addShapeTest()
 	{
-		assertThrowsExactly(IllegalStateException.class,() -> canvas.addShape(shp2));
+		assertThrowsExactly(ShapeAlreadyExistsException.class,() -> canvas.addShape(shp2));
 		Square shp6 = new Square(29,1 );
 		Canvas expectedCanvas = new Canvas(11,new Shape[] {shp1,shp2,shp3,shp4,shp5,shp6});
 		canvas.addShape(shp6);

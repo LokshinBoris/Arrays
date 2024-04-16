@@ -7,7 +7,7 @@ import bbl.util.Arrays;
 //SO far we don't consider optimization
 public class Company implements Iterable<Employee>
 {
-	Employee[] employees;
+	public Employee[] employees;
 	public void addEmployee(Employee empl)
 	{
 		//TODO adds new Employee to array of employees
@@ -44,7 +44,7 @@ public class Company implements Iterable<Employee>
 	}
 	public int getDepartmentBudget(String department)
 	{
-		//FIXME
+		
 		//returns sum of basic salary values for all employees of a given department
 		//if employees of a given department don't exist, returns 0
 		int sum=0;
@@ -73,10 +73,32 @@ public class Company implements Iterable<Employee>
 		String[] departments= {};
 		for(Employee emp: employees)
 		{		
-				int index=Arrays.binarySearch(departments, emp.getDepartment(), (a,b)->a.compareTo(b));
+				int index=Arrays.binarySearch(departments, emp.getDepartment(), (a,b)->a.compareTo(b)); // String::compareTo Comparable::CompareTo Comparator.naturalOrder()
 				if(index<0)	departments=Arrays.add(departments, emp.getDepartment());				
 		}
 		return departments;
+	}
+	
+	public Manager[] getManagersWithMostFactor() 
+	{
+		//returns array of managers with the most factor value
+		Manager[] managers = new Manager[0];
+		float maxFactor=0;
+		for(Employee emp: employees)
+		{
+			if(emp instanceof Manager)
+			{
+				Manager man=(Manager) emp;
+				float factor=man.factor;
+				if(factor>=maxFactor)
+				{
+					if(factor!=maxFactor) managers=Arrays.removeIf(managers, (a) -> true);
+					managers=Arrays.add(managers, man);
+					maxFactor=factor;
+				}
+			}
+		}
+		return managers;
 	}
 
 	private class CompanyIterator implements Iterator<Employee>
