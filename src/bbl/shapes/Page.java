@@ -93,7 +93,7 @@ public class Page implements Iterable<Shape>
 		@Override
 		public boolean hasNext()
 		{
-			return shapes.length<0? false:current<shapes.length;
+			return current<shapes.length;
 		}
 
 		@Override

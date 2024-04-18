@@ -109,7 +109,7 @@ public class Company implements Iterable<Employee>
 		@Override
 		public boolean hasNext()
 		{
-			return employees.length<0? false:current<employees.length;
+			return current<employees.length;
 		}
 
 		@Override
